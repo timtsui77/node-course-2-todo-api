@@ -7,13 +7,17 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', { useNewUrlParser: true
     console.log('Connected to MonogoDB server');
     const db = client.db('TodoApp');
 
-    // db.collection('Todos').deleteMany({text: 'Eat lunch'}).then((result) => {
-    //     console.log(result);
-    // });
-
-    db.collection('Todos').deleteOne({text:'Each lunch'}).then((result) => {
-
-    })
+    db.collection('Todos').findOneAndUpdate({
+        _id: new ObjectID('5b91a5012e2f738ae59844a5')
+    }, {
+        $set: {
+            completed: true
+        }
+    }, {
+        returnOriginal: false
+    }).then((result) => {
+        console.log(result);
+    });
 
     client.close();
 
